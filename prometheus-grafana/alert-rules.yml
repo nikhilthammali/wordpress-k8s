@@ -1,0 +1,18 @@
+# alert-rules.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-alerts
+  namespace: default
+spec:
+  groups:
+    - name: pod-alerts
+      rules:
+        - alert: HighPodCPU
+          expr: sum(rate(container_cpu_usage_seconds_total[1m])) by (pod) > 0.9
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage on {{ $labels.pod }}"
+            description: "Pod {{ $labels.pod }} is using high CPU."

@@ -1,0 +1,19 @@
+# values.yaml
+image:
+  wordpress: my-wordpress
+  mysql: my-mysql
+  nginx: my-nginx
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteMany
+  size: 10Gi
+
+mysql:
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 10Gi
+
+service:
+  type: LoadBalancer
